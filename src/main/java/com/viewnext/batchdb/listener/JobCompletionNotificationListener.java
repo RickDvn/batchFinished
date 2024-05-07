@@ -9,7 +9,7 @@ import org.springframework.jdbc.core.DataClassRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
-import com.viewnext.batchdb.model.Stock;
+import com.viewnext.batchdb.model.StockBo;
 
 /**
  * Clase listener que se usa para loggear lo cambiado despues de que el Job se cumpla
@@ -34,7 +34,7 @@ public class JobCompletionNotificationListener implements JobExecutionListener {
 			log.info("!!! JOB FINISHED! Time to verify the results");
 
 			jdbcTemplate
-					.query("SELECT * FROM STOCK", new DataClassRowMapper<>(Stock.class))
+					.query("SELECT * FROM STOCK", new DataClassRowMapper<>(StockBo.class))
 					.forEach(person -> log.info("Found <{{}}> in the database.", person));
 		}
 	}

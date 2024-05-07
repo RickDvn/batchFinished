@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.PathResource;
 import org.springframework.stereotype.Component;
 
-import com.viewnext.batchdb.model.Stock;
+import com.viewnext.batchdb.model.StockBo;
 
 /**
  * Clase que guarda los distintos writers para este batch
@@ -26,9 +26,9 @@ public class StockWriter {
 	 * @return El writer que escribirá en la base de datos
 	 */
 	@Bean(value = "writerDB")
-	public JdbcBatchItemWriter<Stock> writerDB(DataSource dataSource) 
+	public JdbcBatchItemWriter<StockBo> writerDB(DataSource dataSource) 
 	{ 
-		return new JdbcBatchItemWriterBuilder<Stock>() 
+		return new JdbcBatchItemWriterBuilder<StockBo>() 
 				.itemSqlParameterSourceProvider( 
 						new BeanPropertyItemSqlParameterSourceProvider<>())
 				.sql("INSERT INTO STOCK (lugar, id, stock, stock_real, stock_virtual) VALUES (:lugar, :id, :stock, :stockReal, :stockVirtual);")
@@ -42,8 +42,8 @@ public class StockWriter {
 	 * @return El writer que escribirá en el csv
 	 */
 	@Bean(value = "writerLocal")
-	public FlatFileItemWriter<Stock> writerLocal() {
-		return new FlatFileItemWriterBuilder<Stock>().name("productoItemWriter")
+	public FlatFileItemWriter<StockBo> writerLocal() {
+		return new FlatFileItemWriterBuilder<StockBo>().name("productoItemWriter")
 				.resource(new PathResource("src/main/resources/data/local/stockTerminales.csv")).delimited()
 				.names("lugar", "id", "stock", "stockReal", "stockVirtual")
 				.build();

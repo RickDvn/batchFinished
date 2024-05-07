@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Component;
 
-import com.viewnext.batchdb.model.Stock;
+import com.viewnext.batchdb.model.StockBo;
 
 /**
  * Clase que maneja los distintos reader del Batch
@@ -25,7 +25,7 @@ public class StockReader {
 	 * @return FlatFileItemReader<Stock> el archivo leido y listo para procesar
 	 */
 	@Bean("stockReaderLocal")
-	public FlatFileItemReader<Stock> reader() {
+	public FlatFileItemReader<StockBo> reader() {
 
 		// El separador de las columnas
 		DelimitedLineTokenizer tokenizer = new DelimitedLineTokenizer();
@@ -33,15 +33,15 @@ public class StockReader {
 		tokenizer.setStrict(false); // Para que no tenga en cuenta las columnas extra
 		tokenizer.setNames("lugar", "id", "stock", "stockReal", "stockVirtual");
 
-		DefaultLineMapper<Stock> lineMapper = new DefaultLineMapper<>();
+		DefaultLineMapper<StockBo> lineMapper = new DefaultLineMapper<>();
 		lineMapper.setLineTokenizer(tokenizer);
 
 		// Inicializacion del mapper que a sonarlint le gusta
-		BeanWrapperFieldSetMapper<Stock> mapper = new BeanWrapperFieldSetMapper<Stock>();
+		BeanWrapperFieldSetMapper<StockBo> mapper = new BeanWrapperFieldSetMapper<>();
 		
-		mapper.setTargetType(Stock.class);
+		mapper.setTargetType(StockBo.class);
 		
-		return new FlatFileItemReaderBuilder<Stock>().name("stockItemReader").linesToSkip(1).strict(true)
+		return new FlatFileItemReaderBuilder<StockBo>().name("stockItemReader").linesToSkip(1).strict(true)
 				.resource(new FileSystemResource("src/main/resources/data/local/stockTerminales.dat")).lineTokenizer(tokenizer)
 				.fieldSetMapper(mapper).build();
 	}

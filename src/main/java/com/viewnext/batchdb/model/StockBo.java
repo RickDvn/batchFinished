@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Stock {
+public class StockBo {
 	
 	private String lugar;
 	private Long id;

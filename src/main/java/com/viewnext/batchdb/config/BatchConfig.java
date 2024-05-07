@@ -16,7 +16,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 import com.viewnext.batchdb.listener.JobCompletionNotificationListener;
 import com.viewnext.batchdb.processor.StockItemProcessor;
-import com.viewnext.batchdb.model.Stock;
+import com.viewnext.batchdb.model.StockBo;
 
 /**
  * La configuracion del Batch
@@ -44,10 +44,10 @@ public class BatchConfig {
 	 * @return
 	 */
 	@Bean
-	public Step step1(JobRepository jobRepository, PlatformTransactionManager transactionManager, @Qualifier("stockReaderLocal") FlatFileItemReader<Stock> reader,
-			StockItemProcessor processor, @Qualifier("writerLocal") FlatFileItemWriter<Stock> writer) {
+	public Step step1(JobRepository jobRepository, PlatformTransactionManager transactionManager, @Qualifier("stockReaderLocal") FlatFileItemReader<StockBo> reader,
+			StockItemProcessor processor, @Qualifier("writerLocal") FlatFileItemWriter<StockBo> writer) {
 		return new StepBuilder("step1", jobRepository)
-				.<Stock, Stock> chunk(3, transactionManager)
+				.<StockBo, StockBo> chunk(3, transactionManager)
 				.allowStartIfComplete(true)
 				.reader(reader)
 				.processor(processor)
@@ -66,10 +66,10 @@ public class BatchConfig {
 	 * @return
 	 */
 	@Bean
-	public Step step2(JobRepository jobRepository, PlatformTransactionManager transactionManager, @Qualifier("stockReaderLocal") FlatFileItemReader<Stock> reader,
-			StockItemProcessor processor, @Qualifier("writerDB") JdbcBatchItemWriter<Stock> writer) {
+	public Step step2(JobRepository jobRepository, PlatformTransactionManager transactionManager, @Qualifier("stockReaderLocal") FlatFileItemReader<StockBo> reader,
+			StockItemProcessor processor, @Qualifier("writerDB") JdbcBatchItemWriter<StockBo> writer) {
 		return new StepBuilder("step2", jobRepository)
-				.<Stock, Stock> chunk(3, transactionManager)
+				.<StockBo, StockBo> chunk(3, transactionManager)
 				.allowStartIfComplete(true)
 				.reader(reader)
 				.processor(processor)
