@@ -1,0 +1,2 @@
+# batchFinished
+ El batch completo
