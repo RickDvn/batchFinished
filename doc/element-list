@@ -1,0 +1,7 @@
+com.viewnext.batchdb
+com.viewnext.batchdb.config
+com.viewnext.batchdb.listener
+com.viewnext.batchdb.model
+com.viewnext.batchdb.processor
+com.viewnext.batchdb.reader
+com.viewnext.batchdb.writer
