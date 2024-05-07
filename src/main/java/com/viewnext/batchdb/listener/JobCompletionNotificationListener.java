@@ -26,16 +26,16 @@ public class JobCompletionNotificationListener implements JobExecutionListener {
 	}
 
 	/**
-	 * Realiza unlog de los Stock de la base de datos cuando se completa exitosamente el Job
+	 * Realiza un log cuando se completa un job
 	 */
 	@Override
 	public void afterJob(JobExecution jobExecution) {
 		if(jobExecution.getStatus() == BatchStatus.COMPLETED) {
 			log.info("!!! JOB FINISHED! Time to verify the results");
 
-			jdbcTemplate
-					.query("SELECT * FROM STOCK", new DataClassRowMapper<>(StockBo.class))
-					.forEach(stock -> log.info("Found <{{}}> in the database.", stock));
+//			jdbcTemplate
+//					.query("SELECT * FROM STOCK", new DataClassRowMapper<>(StockBo.class))
+//					.forEach(stock -> log.info("Found <{{}}> in the database.", stock));
 		}
 	}
 }
