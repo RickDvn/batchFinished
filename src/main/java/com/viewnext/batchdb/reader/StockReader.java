@@ -41,7 +41,7 @@ public class StockReader {
 		
 		mapper.setTargetType(StockBo.class);
 		
-		return new FlatFileItemReaderBuilder<StockBo>().name("stockItemReader").linesToSkip(1).strict(true)
+		return new FlatFileItemReaderBuilder<StockBo>().name("stockItemReader").linesToSkip(1).strict(true) // Saltar la cabecera
 				.resource(new FileSystemResource("src/main/resources/data/local/stockTerminales.dat")).lineTokenizer(tokenizer)
 				.fieldSetMapper(mapper).build();
 	}

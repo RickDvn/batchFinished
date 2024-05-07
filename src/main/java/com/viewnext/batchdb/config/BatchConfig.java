@@ -29,7 +29,7 @@ public class BatchConfig {
 		return new JobBuilder("importUserJob", jobRepository)
 				.listener(listener)
 				.start(step1)
-				.next(step2)
+				//.next(step2)
 				.build();
 	}
 	
