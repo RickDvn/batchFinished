@@ -44,8 +44,9 @@ public class StockWriter {
 	@Bean(value = "writerLocal")
 	public FlatFileItemWriter<StockBo> writerLocal() {
 		return new FlatFileItemWriterBuilder<StockBo>().name("productoItemWriter")
-				.resource(new PathResource("src/main/resources/data/local/stockTerminales.csv")).delimited()
+				.resource(new PathResource("src/main/resources/data/local/stockTerminales.csv")).delimited().delimiter(",")
 				.names("lugar", "id", "stock", "stockReal", "stockVirtual")
+				.headerCallback(new StockHeaderWriter("lugar, id, stock, stockReal, stockVirtual"))
 				.build();
 	}
 }
