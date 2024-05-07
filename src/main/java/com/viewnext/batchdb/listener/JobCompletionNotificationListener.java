@@ -35,7 +35,7 @@ public class JobCompletionNotificationListener implements JobExecutionListener {
 
 			jdbcTemplate
 					.query("SELECT * FROM STOCK", new DataClassRowMapper<>(StockBo.class))
-					.forEach(person -> log.info("Found <{{}}> in the database.", person));
+					.forEach(stock -> log.info("Found <{{}}> in the database.", stock));
 		}
 	}
 }
